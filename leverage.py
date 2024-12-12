@@ -15,4 +15,8 @@ if __name__ == "__main__":
     snap_data["rate_of_delta_dist"] = snap_data["dist_diff_after_20"]/2
     normalizer = max(np.abs(snap_data["rate_of_delta_dist"]))
     snap_data["normalized_rate_of_delta_dist"] = snap_data["rate_of_delta_dist"] / normalizer
+    snap_data["defender_o_dir_delta"] = np.abs(snap_data["defender_dir"] - snap_data["defender_o"])
+    snap_data["defender_o_dir_delta"] = snap_data["defender_o_dir_delta"].where(snap_data["defender_o_dir_delta"] <= 180, 360 - snap_data["defender_o_dir_delta"])
+    snap_data["receiver_o_dir_delta"] = np.abs(snap_data["receiver_dir"] - snap_data["receiver_o"])
+    snap_data["receiver_o_dir_delta"] = snap_data["receiver_o_dir_delta"].where(snap_data["receiver_o_dir_delta"] <= 180, 360 - snap_data["receiver_o_dir_delta"])
     snap_data.to_csv("data/dist_by_play.csv")
