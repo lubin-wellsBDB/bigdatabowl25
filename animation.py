@@ -225,7 +225,8 @@ def animate_play(games,tracking_df,play_df,openness,gameId,playId, man_in_motion
             mode="lines",
             line=dict(color="blue", width=2),
             name="Motion Path",
-            hoverinfo="skip"
+            hoverinfo="skip",
+            showlegend=False
         ))         
 
         rec_x = motion_player_df.x.values[0] + (motion_player_df.s.values[0] * np.sin(motion_player_df.dir.values[0] / (2 * math.pi)) * .5)
@@ -251,8 +252,9 @@ def animate_play(games,tracking_df,play_df,openness,gameId,playId, man_in_motion
             y=route_player_trajectory["y"],
             mode="lines",
             line=dict(color=color, width=2),
-            name="Motion Path",
-            hoverinfo="skip"
+            name="Route Path",
+            hoverinfo="skip",
+            showlegend=False
         ))    
         
         for team in selected_tracking_df.club.unique():
