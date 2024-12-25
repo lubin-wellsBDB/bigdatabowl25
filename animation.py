@@ -13,7 +13,7 @@ import matplotlib.animation as animation
 from matplotlib import rc
 rc('animation', html='html5')
 
-tracking = pd.read_csv("data/diggs_play_tracking.csv")
+tracking = pd.read_csv("data/crossing_without_motion_play.csv")
 openness = pd.read_csv("data/openness_by_play.csv")
 games = pd.read_csv("data/games.csv")
 plays = pd.read_csv("data/plays.csv")
@@ -94,14 +94,19 @@ def animate_play(games,tracking_df,play_df,openness,gameId,playId, man_in_motion
     shift_frame_row = selected_tracking_df.loc[selected_tracking_df["event"] == "shift"].frameId.unique()
     snap_frame = selected_tracking_df.loc[selected_tracking_df["event"] == "ball_snap"].frameId.unique()[0]
     pass_forward_frame = selected_tracking_df.loc[selected_tracking_df["event"] == "pass_forward"].frameId.unique()[0]
-    pass_arrived_frame = selected_tracking_df.loc[selected_tracking_df["event"] == "pass_arrived"].frameId.unique()[0]
+    pass_arrived_row = selected_tracking_df.loc[selected_tracking_df["event"] == "pass_arrived"].frameId.unique()
+
+    pass_arrived_frame = -1
+    if len(pass_arrived_row) != 0:
+        pass_arrived_frame = pass_arrived_row[0]
 
     sorted_frame_list = list(selected_tracking_df.frameId.unique())
     max_frame = max(sorted_frame_list)
 
     frames_to_pause = 10
     sorted_frame_list.extend([pass_forward_frame for _ in range(frames_to_pause)])
-    sorted_frame_list.extend([pass_arrived_frame for _ in range(frames_to_pause)])
+    if pass_arrived_frame != -1:
+        sorted_frame_list.extend([pass_arrived_frame for _ in range(frames_to_pause)])
     if snap_frame + 10 <= max_frame:
         sorted_frame_list.extend([snap_frame + 10 for _ in range(frames_to_pause)])
     if snap_frame + 20 <= max_frame:
@@ -387,4 +392,4 @@ def animate_play(games,tracking_df,play_df,openness,gameId,playId, man_in_motion
   
     return fig
 
-animate_play(games, tracking, plays, openness, 2022101610, 701, 42489)
+animate_play(games, tracking, plays, openness, 2022101000, 3837, 47839)
