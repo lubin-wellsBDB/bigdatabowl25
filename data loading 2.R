@@ -59,7 +59,7 @@ receiver_and_defender_tracking_data_3 <- receiver_and_defender_tracking_data_2 %
 
 # write.csv(receiver_and_defender_tracking_data_3, "receiver_and_defender_tracking_data_2.csv", row.names = F)
 
-receiver_and_defender_tracking_data_3 <- fread("receiver_and_defender_tracking_data_2.csv")
+receiver_and_defender_tracking_data_3 <- fread("data/whole_receiver_and_defender_tracking_data.csv")
 
 ball_snap_data <- receiver_and_defender_tracking_data_3 %>% filter(event == "ball_snap")
 
