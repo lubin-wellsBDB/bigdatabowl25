@@ -305,3 +305,26 @@ attribute_top_5s_gt <- attribute_top_5s %>%
 
 
 gtsave(attribute_top_5s_gt, "attribute_top_5s_gt.png")
+
+
+
+motion_efficiency_plot <- ggplot(motion_efficiency, aes(x = reorder(paste(routeRan, pff_manZone, sep = " vs. "), motion_efficiency), 
+                              y = motion_efficiency, fill = motion_efficiency)) +
+  geom_bar(stat = "identity") +
+  scale_fill_gradient(low = "firebrick", high = "forestgreen") +
+  coord_flip() +
+  geom_hline(yintercept = 0, color = "black") +
+  theme_fivethirtyeight() +
+  theme(legend.position = "none",
+        axis.title.x =  element_text(size = 12, color = "black"),
+        panel.grid.major.y = element_line(color = alpha("lightgray", 0.3)),
+        axis.text.x = element_blank()) +
+  labs(title = "Route Motion Efficiency",
+       y = "Motion Efficiency (Openness Improvement)",
+       subtitle = "Analyzing Routes' Openness Improvement With Pre-Snap Movement Against Defensive Coverage",
+       caption = "2022 NFL Season - Weeks 1-9",
+       x = "Route-Coverage Combination") +
+  geom_text(aes(label = round(motion_efficiency, 2), hjust = hjust), size = 3)
+ggsave("motion_efficiency_plot.png", motion_efficiency_plot, width = 11, height = 6)
+
+            
